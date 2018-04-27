@@ -1,4 +1,4 @@
-Edex Chat
+Edex Messenger
 Copyright © 2018  Podvirnyy Nikita (KRypt0n_)
 
 This program is free software: you can redistribute it and/or modify
