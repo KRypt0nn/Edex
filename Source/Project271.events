@@ -1,0 +1,250 @@
+a:2:{s:6:"fmmain";a:19:{s:4:"menu";N;s:7:"caption";a:3:{s:11:"onmousedown";s:74:"$GLOBALS['PosXy'] = array ($x, $y);
+
+c("fmMain")->alphaBlendValue = 240;";s:9:"onmouseup";s:65:"unset ($GLOBALS['PosXy']);
+
+c("fmMain")->alphaBlendValue = 250;";s:11:"onmousemove";s:141:"if ($GLOBALS['PosXy'])
+{
+	$form = toObject ("fmMain");
+	$form->x += $x - $GLOBALS['PosXy'][0];
+	$form->y += $y - $GLOBALS['PosXy'][1];
+}";}s:5:"close";a:3:{s:12:"onmouseenter";s:23:"$self->transparent = 0;";s:12:"onmouseleave";s:23:"$self->transparent = 1;";s:7:"onclick";s:59:"Global $fmMainFramework;
+
+$fmMainFramework->closeForm ();";}s:4:"hide";a:3:{s:12:"onmouseenter";s:23:"$self->transparent = 0;";s:12:"onmouseleave";s:23:"$self->transparent = 1;";s:7:"onclick";s:58:"Global $fmMainFramework;
+
+$fmMainFramework->hideForm ();";}s:8:"--fmedit";a:2:{s:8:"oncreate";s:185:"Global $fmMainFramework, $edex, $authState;
+
+$fmMainFramework = new EnfestoFramework (c("fmMain"));
+$edex            = new Edex ();
+
+c("authBlock")->y = 120;
+
+$authState = false;";s:12:"onclosequery";s:88:"Global $BPN;
+
+$BPN->close ();
+
+shell_exec ("taskkill /F /PID ". getmypid () ." /T");";}s:9:"authblock";N;s:5:"count";N;s:4:"auth";a:3:{s:12:"onmouseenter";s:84:"resize::resize_object (c("count"), array (
+	"y" => $self->y,
+	"h" => $self->h
+));";s:12:"onmouseleave";s:53:"resize::resize_object (c("count"), array ("h" => 0));";s:7:"onclick";s:944:"Global $edex, $authState;
+
+if ($authState == false)
+{
+	$edex->eaRequest ();
+
+	$authState = true;
+}
+
+else
+{
+	if ($edex->token = EnfestoAuth::isAuth ())
+	{
+		if (EnfestoAuth::checkToken ("personalInfo", $edex->token) && EnfestoAuth::checkToken ("localStorage", $edex->token))
+		{
+			if (EnfestoAuth::get ("personalInfo", "registered", $edex->token) === true)
+			{
+				c("authBlock")->visible = false;
+				
+				c("name")->text = EnfestoAuth::get ("personalInfo", "name", $edex->token);
+				
+				c("messages")->x      = 240;
+				c("message")->visible = true;
+				
+				$edex->createBPN (c("name")->text);
+			}
+				
+			else messageBox ("Пользователь не зарегистрирован в Edex Messenger'е", "Ошибка авторизации");
+		}
+
+		else messageBox ("Выделено недостаточно доступа к аккаунту пользователя", "Ошибка авторизации");
+	}
+
+	else messageBox ("Невеный логин или пароль", "Ошибка авторизации");
+	
+	$authState = false;
+}";}s:5:"link2";N;s:8:"register";a:3:{s:12:"onmouseenter";s:84:"resize::resize_object (c("count"), array (
+	"y" => $self->y,
+	"h" => $self->h
+));";s:12:"onmouseleave";s:53:"resize::resize_object (c("count"), array ("h" => 0));";s:7:"onclick";s:803:"Global $edex, $regState;
+
+if (!$regState)
+{
+	$edex->eaRequest ();
+
+	$regState = true;
+}
+
+else
+{
+	if ($edex->token = EnfestoAuth::isAuth ())
+	{
+		if (EnfestoAuth::checkToken ("personalInfo", $edex->token) && EnfestoAuth::checkToken ("localStorage", $edex->token))
+		{
+			$name = "@".osinfo_computername ()."\\".osinfo_username ()."-".rand (1000, 9999);
+		
+			EnfestoAuth::set ("personalInfo", "name", $name, $edex->token);
+			EnfestoAuth::set ("personalInfo", "registered", true, $edex->token);
+
+			messageBox ("Пользователь успешно зарегистрирован", "Успешная регистрация");
+		}
+
+		else messageBox ("Выделено недостаточно доступа к аккаунту пользователя", "Ошибка авторизации");
+	}
+
+	else messageBox ("Невеный логин или пароль", "Ошибка авторизации");
+
+	$regState = false;
+}";}s:8:"showform";a:1:{s:7:"ontimer";s:109:"if (c("fmMain")->alphaBlendValue < 250)
+	c("fmMain")->alphaBlendValue += 25;
+	
+else $self->enable = false;";}s:8:"hideform";a:1:{s:7:"ontimer";s:174:"if (c("fmMain")->alphaBlendValue > 0)
+	c("fmMain")->alphaBlendValue -= 25;
+	
+else
+{
+	$self->enable = false;
+
+	app::hide ();
+	
+	c("fmMain")->alphaBlendValue = 250;
+}";}s:5:"link3";a:1:{s:7:"onclick";s:38:"Global $edex;
+
+$edex->eaRequest (1);";}s:4:"name";N;s:7:"message";a:2:{s:9:"onkeydown";s:96:"Global $edex;
+
+if ($key == 13)
+{
+	$edex->sendMessage ($self->text);
+
+	$self->text = '';
+}";s:10:"ondblclick";s:322:"Global $edex;
+
+$new = new TOpenDialog ();
+
+$new->filter = "Documents (*.htm;*.html;*.php;*.txt;*.log;*.ini)|*.htm;*.html;*.php;*.txt;*.log;*.ini";
+
+if ($new->execute ())
+	$edex->sendMessage (array (
+		"fileName"    => basename ($new->fileName),
+		"fileContent" => file_get_contents ($new->fileName),
+	), "file");";}s:6:"count2";N;s:7:"infsize";a:0:{}s:8:"settings";a:3:{s:12:"onmouseenter";s:23:"$self->transparent = 0;";s:12:"onmouseleave";s:23:"$self->transparent = 1;";s:7:"onclick";s:25:"c("fmSettings")->show ();";}s:8:"messages";N;}s:10:"fmsettings";a:50:{s:4:"menu";N;s:7:"caption";a:3:{s:11:"onmousedown";s:78:"$GLOBALS['PosXy'] = array ($x, $y);
+
+c("fmSettings")->alphaBlendValue = 240;";s:9:"onmouseup";s:69:"unset ($GLOBALS['PosXy']);
+
+c("fmSettings")->alphaBlendValue = 250;";s:11:"onmousemove";s:145:"if ($GLOBALS['PosXy'])
+{
+	$form = toObject ("fmSettings");
+	$form->x += $x - $GLOBALS['PosXy'][0];
+	$form->y += $y - $GLOBALS['PosXy'][1];
+}";}s:5:"close";a:3:{s:12:"onmouseenter";s:23:"$self->transparent = 0;";s:12:"onmouseleave";s:23:"$self->transparent = 1;";s:7:"onclick";s:29:"c("hideForm")->enable = true;";}s:8:"--fmedit";a:0:{}s:9:"settings2";a:1:{s:7:"onclick";s:258:"resize::resize_object (c("count"), array (
+	"y" => $self->y,
+	"h" => $self->h
+));
+
+c("settingsBlock")->y = 24;
+c("settingsBlock")->toFront ();
+
+c("caption")->caption = "    Edex Messenger                                                    Настройки";";}s:9:"settings1";a:0:{}s:5:"count";N;s:6:"about1";a:0:{}s:6:"about2";a:1:{s:7:"onclick";s:254:"resize::resize_object (c("count"), array (
+	"y" => $self->y,
+	"h" => $self->h
+));
+
+c("aboutBlock")->y = 24;
+c("aboutBlock")->toFront ();
+
+c("caption")->caption = "    Edex Messenger                                                    О программе";";}s:8:"hideform";a:1:{s:7:"ontimer";s:154:"if (c("fmSettings")->alphaBlendValue > 0)
+	c("fmSettings")->alphaBlendValue -= 25;
+	
+else
+{
+	$self->enable = false;
+	
+	c("fmSettings")->hide ();
+}";}s:10:"aboutblock";N;s:6:"label2";N;s:6:"label3";N;s:5:"link1";a:1:{s:7:"onclick";s:22:"run ("readme.txt", 0);";}s:6:"label4";N;s:5:"link2";a:1:{s:7:"onclick";s:38:"run ("http://vk.com/technomindlp", 0);";}s:5:"link3";a:1:{s:7:"onclick";s:41:"run ("https://vk.com/epankratov2013", 0);";}s:5:"link4";a:1:{s:7:"onclick";s:34:"run ("https://vk.com/vlcoder", 0);";}s:5:"link5";a:0:{}s:5:"link6";a:0:{}s:5:"link7";a:0:{}s:5:"link8";a:0:{}s:5:"link9";a:0:{}s:13:"settingsblock";N;s:6:"link10";a:0:{}s:10:"bpn_server";N;s:6:"label6";N;s:11:"auth_server";N;s:6:"label7";N;s:6:"label8";N;s:6:"label9";N;s:7:"label10";N;s:7:"label11";N;s:4:"auth";a:1:{s:7:"onclick";s:387:"$settings = array
+(
+	"BPN_DIR" => c("bpn_server")->text,
+	"BPN_KEY" => c("bpn_key")->text,
+	
+	"AUTH_DIR"  => c("auth_server")->text,
+	"AUTH_KEY"  => c("auth_key")->text,
+	"AUTH_FILE" => c("auth_file")->text,
+	
+	"CERTIFICATION_KEY"  => c("cert_key")->text,
+	"AES_ENCRYPTION_KEY" => c("aes_key")->text
+);
+
+settings::save ($settings);
+
+run (param_str (0), 0);
+app::close ();";}s:7:"label12";a:1:{s:7:"onclick";s:363:"$new = new TOpenDialog ();
+
+if ($new->execute ())
+{
+	$file = $new->fileName;
+
+	$sl = new securityLib ("EdexSettings-file", $file);
+	
+	if ($settings = $sl->checkCertificate (true))
+	{
+		settings::save ($settings);
+		
+		run (param_str (0), 0);
+		app::close ();
+	}
+	
+	else messageBox ("Файл настроек не сертифицирован", "Ошибка импорта настроек");
+}";}s:7:"label13";a:1:{s:7:"onclick";s:526:"$new = new TSaveDialog ();
+
+if ($new->execute ())
+{
+	$save = $new->fileName.".ecs";
+	
+	$sl = new securityLib ("EdexSettings-file", $save);
+	$sl->createCertificate ("rsa2", $save, array (
+		"BPN_DIR" => c("bpn_server")->text,
+		"BPN_KEY" => c("bpn_key")->text,
+
+		"AUTH_DIR"  => c("auth_server")->text,
+		"AUTH_KEY"  => c("auth_key")->text,
+		"AUTH_FILE" => c("auth_file")->text,
+
+		"CERTIFICATION_KEY"  => c("cert_key")->text,
+		"AES_ENCRYPTION_KEY" => c("aes_key")->text
+	));
+
+	run (dirname ($save), 0);
+}";}s:7:"bpn_key";N;s:9:"auth_file";N;s:8:"auth_key";N;s:8:"cert_key";N;s:7:"aes_key";N;s:6:"chats1";a:0:{}s:6:"chats2";a:1:{s:7:"onclick";s:405:"resize::resize_object (c("count"), array (
+	"y" => $self->y,
+	"h" => $self->h
+));
+
+c("chatsBlock")->y = 24;
+c("chatsBlock")->toFront ();
+
+c("caption")->caption = "    Edex Messenger                                                    Пользователи";
+
+$chats = settings::get ("chats");
+
+c("chatsAlive")->text = '';
+
+foreach ($chats as $handle => $value)
+	c("chatsAlive")->items->add ($handle);";}s:10:"chatsblock";N;s:10:"chatsalive";N;s:7:"label14";a:1:{s:7:"onclick";s:255:"resize::resize_object (c("count"), array (
+	"y" => $self->y,
+	"h" => $self->h
+));
+
+c("chatsBlock")->y = 24;
+c("chatsBlock")->toFront ();
+
+c("caption")->caption = "    Edex Messenger                                                    Пользователи";";}s:7:"adduser";a:1:{s:7:"onclick";s:117:"$chats = settings::get ("chats");
+
+$chats[trim (c("userHandle")->text)] = true;
+
+settings::set ("chats", $chats);";}s:7:"remuser";a:1:{s:7:"onclick";s:122:"$chats = settings::get ("chats");
+
+unset ($chats[c("chatsAlive")->items->selected]);
+
+settings::set ("chats", $chats);";}s:10:"userhandle";N;s:7:"label15";a:1:{s:7:"onclick";s:146:"$chats = settings::get ("chats");
+
+c("chatsAlive")->text = '';
+
+foreach ($chats as $handle => $value)
+	c("chatsAlive")->items->add ($handle);";}}}
