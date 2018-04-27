@@ -24,7 +24,9 @@ Edex Messenger полностью написан на [`PHP Devel Studio`](http:
 Обратная связь и другое
 -----------------------
 Создатель, главный разработчик: [Подвирный Никита](https://vk.com/technomindlp)
+
 Разработчик: [Бачериков Алексей](https://vk.com/bacherikoff)
+
 Дизайнер: [Панкратов Егор](https://vk.com/epankratov2013)
 
 [Enfesto' Studio Group (c) 2018](https://vk.com/hphp_convertation)
