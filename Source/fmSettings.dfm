@@ -761,9 +761,9 @@ object fmEdit: TForm
       'FAYRCmNsYXNzX25hbWUOCBEPACoAX2NvbnN0cmFpbnRzFxBUU2l6ZUNvbnN0cmFp' +
       'bnRzFAMOCQ4LEQRzZWxmCgmpmwgRCAAqAHByb3BzFAARBwAqAGljb24AEQgAKgBf' +
       'Zm9udAAODAoBbT1QDg0UAQ4DBREEdGV4dBEKyu7t8uXp7eXwMREKd2luY29udHJv' +
-      'bAURAXkRAzUwNA=='
+      'bAURAXkRAjI0'
     BorderStyle = bsNone
-    TabOrder = 4
+    TabOrder = 3
     object label5: TLabel
       Left = 16
       Top = 24
@@ -904,9 +904,9 @@ object fmEdit: TForm
       Font.Style = []
       ParentFont = False
     end
-    object auth: TLabel
+    object save: TLabel
       Left = 16
-      Top = 448
+      Top = 512
       Width = 128
       Height = 24
       HelpType = htKeyword
@@ -930,9 +930,9 @@ object fmEdit: TForm
       Transparent = False
       Layout = tlCenter
     end
-    object label12: TLabel
+    object import: TLabel
       Left = 152
-      Top = 448
+      Top = 512
       Width = 192
       Height = 24
       HelpType = htKeyword
@@ -956,9 +956,9 @@ object fmEdit: TForm
       Transparent = False
       Layout = tlCenter
     end
-    object label13: TLabel
+    object export: TLabel
       Left = 352
-      Top = 448
+      Top = 512
       Width = 192
       Height = 24
       HelpType = htKeyword
@@ -981,6 +981,62 @@ object fmEdit: TForm
       ParentFont = False
       Transparent = False
       Layout = tlCenter
+    end
+    object image1: TMImage
+      Left = 16
+      Top = 536
+      Width = 528
+      Height = 16
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEHVE1JbWFnZREGUEFSQU1TFAYRCGF2aXNpYmxlBREIYWVu' +
+        'YWJsZWQFEQF3DEBiAAAAAAAAEQFoDEBaAAAAAAAAEQZwYXJlbnQXClRTY3JvbGxC' +
+        'b3gUBREKY2xhc3NfbmFtZQ4IEQ8AKgBfY29uc3RyYWludHMAEQgAKgBfZm9udAAR' +
+        'BHNlbGYKDXLngBEIACoAcHJvcHMUABEEdGV4dBEMyOfu4fDg5uXt6OUx'
+    end
+    object label16: TLabel
+      Left = 48
+      Top = 448
+      Width = 416
+      Height = 24
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCBEIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGGBEBeQgBSA=='
+      AutoSize = False
+      Caption = 
+        #1048#1089#1087#1086#1083#1100#1079#1086#1074#1072#1090#1100' '#1076#1088#1091#1075#1080#1077' '#1082#1083#1080#1077#1085#1090#1099' Edex '#1076#1083#1103' '#1088#1077#1090#1088#1072#1085#1089#1083#1103#1094#1080#1080' '#1074#1072#1096#1077#1075#1086' '#1090#1088#1072#1092#1080#1082#1072 +
+        ' '
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+    end
+    object label17: TLabel
+      Left = 48
+      Top = 472
+      Width = 424
+      Height = 16
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCREIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGUBEBeQgBkBEJ' +
+        'Zm9udGNvbG9yBv8='
+      AutoSize = False
+      Caption = #1053#1077#1089#1090#1072#1073#1080#1083#1100#1085#1086'. '#1042#1086#1079#1084#1086#1078#1085#1099' '#1087#1086#1090#1077#1088#1080' '#1089#1086#1086#1073#1097#1077#1085#1080#1081' '#1080' '#1076#1088#1091#1075#1080#1077' '#1087#1086#1073#1086#1095#1085#1099#1077' '#1103#1074#1083#1077#1085#1080#1103
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
     end
     object bpn_server: TEdit
       Left = 16
@@ -1114,6 +1170,19 @@ object fmEdit: TForm
       TabOnEnter = False
       MarginLeft = 0
       MarginRight = 0
+    end
+    object useRetranslators: TCheckBox
+      Left = 24
+      Top = 448
+      Width = 16
+      Height = 24
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEJVENoZWNrQm94EQZQQVJBTVMUBhEIYXZpc2libGUFEQhh' +
+        'ZW5hYmxlZAURAXcMQGIAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9s' +
+        'bEJveBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250' +
+        'ABEEc2VsZgoNcueAEQgAKgBwcm9wcxQAEQR0ZXh0DQ=='
+      TabOrder = 7
     end
   end
   object hideForm: __TNoVisual

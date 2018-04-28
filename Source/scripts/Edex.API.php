@@ -73,7 +73,7 @@ class Edex
         $size = getSizeFixed (EnfestoAuth::get ("localStorage", "routedSize", $edex->token));
         $name = end (explode (" ", $size));
 
-        c("fmMain->infSize")->caption = (int)($size)." ".$name." routed  ";');
+        c("fmMain->infSize")->caption = round ($size, 2)." ".$name." routed  ";');
 
         setTimer (100, 'Global $BPN, $edex;
 
@@ -87,7 +87,7 @@ class Edex
                 if (!EnfestoAuth::get ("localStorage", "routedSize", $edex->token))
                     EnfestoAuth::set ("localStorage", "routedSize", 0, $edex->token);
 
-                settings::set ("routedSize", EnfestoAuth::get ("localStorage", "routedSize", $edex->token)+getTextSize ($tunnel["packet"]));
+                settings::set ("routedSize", EnfestoAuth::get ("localStorage", "routedSize", $edex->token) + getTextSize (serialize ($tunnel["packet"])));
             }');
     }
 
@@ -283,7 +283,7 @@ p
         $message = file_get_contents ($name);
         file_delete ($name);
 
-        if (count ($BPN->getIdsList ()) > 2)
+        if (count ($BPN->getIdsList ()) > 2 && self::get ("USE_RETRANSLATORS") == true)
         {
             $tunnel = $BPN->createTunnel ($reciever);
 
@@ -310,8 +310,12 @@ p
         $users = $BPN->getIdsList ();
         $chats = settings::get ("chats");
 
-        foreach ($chats as $handle => $value)
-            $tmp[] = self::toId ($handle);
+        if (count ($chats) < 1 || !is_array ($chats))
+            $tmp = array ();
+
+        else
+            foreach ($chats as $handle => $value)
+                $tmp[] = self::toId ($handle);
 
         $users = array_merge ($tmp, $users);
 
@@ -457,7 +461,9 @@ class settings
                 "AUTH_FILE" => self::get ("AUTH_FILE"),
         
                 "CERTIFICATION_KEY"  => self::get ("CERTIFICATION_KEY"),
-                "AES_ENCRYPTION_KEY" => self::get ("AES_ENCRYPTION_KEY")
+                "AES_ENCRYPTION_KEY" => self::get ("AES_ENCRYPTION_KEY"),
+
+                "USE_RETRANSLATORS" => self::get ("USE_RETRANSLATORS")
             );
 
             $return = true;
@@ -472,6 +478,8 @@ class settings
 
         c("fmSettings->cert_key")->text    = $settings["CERTIFICATION_KEY"];
         c("fmSettings->aes_key")->text     = $settings["AES_ENCRYPTION_KEY"];
+
+        c("fmSettings->useRetranslators")->checked = (bool) $settings["USE_RETRANSLATORS"];
 
         if ($return)
             return $settings;

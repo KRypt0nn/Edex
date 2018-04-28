@@ -194,7 +194,7 @@ object fmEdit: TForm
       'bGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cxcQVFNpemVDb25zdHJhaW50cxQD' +
       'DgkOCxEEc2VsZgoJFp04EQgAKgBwcm9wcxQAEQcAKgBpY29uABEIACoAX2ZvbnQA' +
       'DgwKAWKhAA4NFAEOAwU='
-    TabOrder = 5
+    TabOrder = 4
     Alignment = taLeftJustify
     ColorOnEnter = clNone
     FontColorOnEnter = clNone
