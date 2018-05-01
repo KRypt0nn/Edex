@@ -45,5 +45,6 @@ Edex Messenger полностью написан на [`PHP Devel Studio`](http:
 * DStructure 1.0
 * miqCode 1.1
 * AES-256
+* Flurex Encrption System 1.0
 * securityLib 1.2
 * Enfesto Auth 2.0
