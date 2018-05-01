@@ -144,7 +144,7 @@ class BPN
 
     protected function getKey ()
     {
-        return "{".sha1 ("#$%^&$%GUEEFT".date ("Ym"))."}";
+        return "{".sha1 ("#$%^&$%GUEEFTzzVT#V$^J*V&5hvht6T\$HH#@#@##@#)_(E)_(@GSY")."}";
     }
 
     # ---------- Tunnels Manipulations
@@ -255,9 +255,9 @@ class BPN
 
     function __destruct ()
     {
-        file_delete ($this->datacenter."/".$this->id."-packetsRecieving.db");
-
         self::removeIdFromList ($this->id);
+
+        file_delete ($this->datacenter."/".$this->id."-packetsRecieving.db");
     }
 }
 

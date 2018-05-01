@@ -95,7 +95,7 @@ class EnfestoAuth
         else return false;
     }
 
-    function get ($container, $id, $accessToken)
+    function get ($container, $id = null, $accessToken)
     {
         Global $accsFileT, $accsFileKeyT;
 
@@ -110,7 +110,10 @@ class EnfestoAuth
         {
             $data = $db->get ($token[$container]);
 
-            return $data[$id];
+            if ($id == null)
+                return $data;
+
+            else return $data[$id];
         }
 
         else return false;

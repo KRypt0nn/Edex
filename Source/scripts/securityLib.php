@@ -131,6 +131,16 @@ class securityLib
 
                 else return false;
             break;
+
+            case "fcm":
+                file_put_contents ($save, self::convertToCertificateType (self::compress (array (
+                    "algorithm" => "fcm",
+                    "data" => Flurex::encode (self::compress (array (
+                        "hash"   => sha1 ($this->key),
+                        "params" => $params
+                    )), $this->key)
+                )), 60));
+            break;
         }
     }
 
@@ -299,6 +309,39 @@ class securityLib
                         }
 
                         else return false;
+                    }
+
+                    else return false;
+                }
+
+                else return false;
+            break;
+
+            case "fcm":
+                if ($data = self::decompress (Flurex::decode ($data, $this->key)))
+                {
+                    if ($data["hash"] == sha1 ($this->key))
+                    {
+                        if ($data["params"]["date"])
+                        {
+                            if ($data["params"]["date"] > time ())
+                            {
+                                if ($returnParams)
+                                    return $data["params"];
+
+                                else return true;
+                            }
+
+                            else return false;
+                        }
+
+                        else
+                        {
+                            if ($returnParams)
+                                return $data["params"];
+
+                            else return true;
+                        }
                     }
 
                     else return false;

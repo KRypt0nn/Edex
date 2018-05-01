@@ -50,11 +50,13 @@ class Edex
         define ("SECURITYLIB_CERTIFICATES_KEY",     $settings["CERTIFICATION_KEY"]);
         define ("AES256_ENCRYPTION_KEY",            $settings["AES_ENCRYPTION_KEY"]);
 
+        dir_create ("saved");
+
         $GLOBALS["usersListY"] = 80;
 
         $this->reciever = null;
 
-        setTimer (100, 'Global $edex; if ($edex->reciever != null && $messages = $edex->getMessagesHTML ($edex->getMessages ($edex->reciever))) c("fmMain->messages")->html = $messages;');
+        setTimer (1000, 'Global $edex; if ($edex->reciever != null && $messages = $edex->getMessagesHTML ($edex->getMessages ($edex->reciever))) c("fmMain->messages")->html = $messages;');
     }
 
     function createBPN ($id)
@@ -63,32 +65,52 @@ class Edex
 
         $this->id = self::toId ($id);
 
-        $BPN = new BPN ($this->id, BPN_NETWORK_DIRECTORY, true);
+        $BPN = new BPN ($this->id, BPN_NETWORK_DIRECTORY, settings::get ("CLIENT_VISIBILITY"));
+
+        $size1 = getSizeFixed (EnfestoAuth::get ("localStorage", "routedSize", $this->token));
+        $name1 = end (explode (" ", $size1));
+
+        $size2 = getSizeFixed (EnfestoAuth::get ("localStorage", "sendedSize", $this->token));
+        $name2 = end (explode (" ", $size2));
+
+        $size3 = getSizeFixed (EnfestoAuth::get ("localStorage", "recievedSize", $this->token));
+        $name3 = end (explode (" ", $size3));
+
+        c("fmMain->infSize")->caption = round ($size3, 2)." ".$name3." recieved  |  ".round ($size2, 2)." ".$name2." sended  |  ".round ($size1, 2)." ".$name1." routed  ";
 
         setTimer (1000, 'Global $edex;
         
         $edex->loadUsersList ();
-        $edex->getMessages ();
+        $edex->getMessages ();');
+
+        setTimer (10000, 'Global $edex;
         
-        $size = getSizeFixed (EnfestoAuth::get ("localStorage", "routedSize", $edex->token));
-        $name = end (explode (" ", $size));
+        $size1 = getSizeFixed (EnfestoAuth::get ("localStorage", "routedSize", $edex->token));
+        $name1 = end (explode (" ", $size1));
 
-        c("fmMain->infSize")->caption = round ($size, 2)." ".$name." routed  ";');
+        $size2 = getSizeFixed (EnfestoAuth::get ("localStorage", "sendedSize", $edex->token));
+        $name2 = end (explode (" ", $size2));
 
-        setTimer (100, 'Global $BPN, $edex;
+        $size3 = getSizeFixed (EnfestoAuth::get ("localStorage", "recievedSize", $edex->token));
+        $name3 = end (explode (" ", $size3));
 
-        $tunnels = $BPN->getTunnels ();
+        c("fmMain->infSize")->caption = round ($size3, 2)." ".$name3." recieved  |  ".round ($size2, 2)." ".$name2." sended  |  ".round ($size1, 2)." ".$name1." routed  ";');
 
-        if (is_array ($tunnels))
-            foreach ($tunnels as $id => $tunnel)
-            {
-                $BPN->executeTunnel ($tunnel["tunnel"], $tunnel["packet"]);
-            
-                if (!EnfestoAuth::get ("localStorage", "routedSize", $edex->token))
-                    EnfestoAuth::set ("localStorage", "routedSize", 0, $edex->token);
+        if (settings::get ("CLIENT_VISIBILITY"))
+            setTimer (100, 'Global $BPN, $edex;
 
-                settings::set ("routedSize", EnfestoAuth::get ("localStorage", "routedSize", $edex->token) + getTextSize (serialize ($tunnel["packet"])));
-            }');
+            $tunnels = $BPN->getTunnels ();
+
+            if (is_array ($tunnels) && count ($tunnels) > 0)
+                foreach ($tunnels as $id => $tunnel)
+                {
+                    $BPN->executeTunnel ($tunnel["tunnel"], $tunnel["packet"]);
+                
+                    if (!EnfestoAuth::get ("localStorage", "routedSize", $edex->token))
+                        EnfestoAuth::set ("localStorage", "routedSize", 0, $edex->token);
+
+                    EnfestoAuth::set ("localStorage", "routedSize", EnfestoAuth::get ("localStorage", "routedSize", $edex->token) + getTextSize (serialize ($tunnel["packet"])), $edex->token);
+                }');
     }
 
     function eaRequest ($n = false)
@@ -113,62 +135,102 @@ class Edex
         Global $BPN, $reciever;
 
         if ($userLink)
-            $reciever = self::toId (trim ($userLink));
-
-        $list = $BPN->recievePacketsFromPeers ();
-
-        if (is_array ($list))
         {
-            foreach ($list as $id => $item)
-            {
-                $item = unserialize (Ketner_A::decode ($item, AES256_ENCRYPTION_KEY));
-
-                $sl = new securityLib (SECURITYLIB_CERTIFICATES_KEY, $item["message"]);
-                        
-                $res             = $sl->checkCertificate (true);
-                $item["message"] = $res["message"];
-
-                $history = EnfestoAuth::get ("localStorage", $item["sender"]."-history", $this->token);
-
-                switch ($item["type"])
-                {
-                    case "message":
-                        $history[] = array
-                        (
-                            "author"  => "outside",
-                            "message" => $item["message"],
-                            "time"    => $item["time"],
-
-                            "type" => $item["type"]
-                        );
-                    break;
-
-                    case "file":
-                        $history[] = array
-                        (
-                            "author"      => "outside",
-                            "fileName"    => $item["message"]["fileName"],
-                            "fileContent" => $item["message"]["fileContent"],
-                            "time"        => $item["time"],
-
-                            "type" => $item["type"]
-                        );
-
-                        file_put_contents ("saved/".sha1 ($item["message"]["fileContent"])."~".$item["message"]["fileName"], $item["message"]["fileContent"]);
-                    break;
-                }
-
-                EnfestoAuth::set ("localStorage", $item["sender"]."-history", $history, $this->token);
-            }
+            $reciever = self::toId (trim ($userLink));
+            
+            return EnfestoAuth::get ("localStorage", $reciever."-history", $this->token);
         }
 
-        if ($userLink)
-            return EnfestoAuth::get ("localStorage", $reciever."-history", $this->token);
+        else
+        {
+            $list = $BPN->recievePacketsFromPeers ();
+
+            if (is_array ($list))
+            {
+                if (!EnfestoAuth::get ("localStorage", "recievedSize", $this->token))
+                    EnfestoAuth::set ("localStorage", "recievedSize", 0, $this->token);
+
+                EnfestoAuth::set ("localStorage", "recievedSize", EnfestoAuth::get ("localStorage", "recievedSize", $this->token) + getTextSize (serialize ($list)), $this->token);
+
+                foreach ($list as $id => $item)
+                {
+                    $item = unserialize (Ketner_A::decode ($item, AES256_ENCRYPTION_KEY));
+
+                    $history = EnfestoAuth::get ("localStorage", $item["sender"]."-history", $this->token);
+
+                    $sl = new securityLib (serialize ($item["message"]["message"]). SECURITYLIB_CERTIFICATES_KEY .$this->id.sha1 ($this->id), $item["message"]["certificate"]);
+                            
+                    if ($sl->checkCertificate ())
+                    {
+                        $item["message"] = $item["message"]["message"];
+
+                        if ($item["flurexUsed"])
+                            $item["message"] = unserialize (Flurex::decode ($item["message"], "FIX:Flurex_". AES256_ENCRYPTION_KEY .$this->id.sha1 ($this->id)));
+
+                        switch ($item["type"])
+                        {
+                            case "message":
+                                $history[] = array
+                                (
+                                    "author"  => "outside",
+                                    "message" => $item["message"],
+                                    "time"    => $item["time"],
+
+                                    "type" => $item["type"]
+                                );
+                            break;
+
+                            case "file":
+                                $history[] = array
+                                (
+                                    "author"      => "outside",
+                                    "fileName"    => $item["message"]["fileName"],
+                                    "fileContent" => $item["message"]["fileContent"],
+                                    "fileHash"    => $item["message"]["fileHash"],
+                                    "time"        => $item["time"],
+
+                                    "type" => $item["type"]
+                                );
+
+                                if (!file_exists ("saved/".$item["message"]["fileHash"]."~".$item["message"]["fileName"]))
+                                    file_put_contents ("saved/".$item["message"]["fileHash"]."~".$item["message"]["fileName"], $item["message"]["fileContent"]);
+                            break;
+
+                            case "image":
+                                $history[] = array
+                                (
+                                    "author"      => "outside",
+                                    "fileName"    => $item["message"]["fileName"],
+                                    "fileContent" => $item["message"]["fileContent"],
+                                    "fileHash"    => $item["message"]["fileHash"],
+                                    "time"        => $item["time"],
+
+                                    "type" => $item["type"]
+                                );
+
+                                if (!file_exists ("saved/".$item["message"]["fileHash"]."~".$item["message"]["fileName"]))
+                                    file_put_contents ("saved/".$item["message"]["fileHash"]."~".$item["message"]["fileName"], $item["message"]["fileContent"]);
+                            break;
+                        }
+
+                        EnfestoAuth::set ("localStorage", $item["sender"]."-history", $history, $this->token);
+                    }
+                }
+            }
+        }
     }
 
     function getMessagesHTML ($messages, $ignoreUsed = false)
     {
         Global $reciever;
+
+        if (settings::get ("MESSAGES_SHOW") > 0)
+        {
+            for ($i = 0; $i < settings::get ("MESSAGES_SHOW"); $i++)
+                $tmp[] = array_pop ($messages);
+
+            $messages = array_reverse ($tmp);
+        }
 
         if (md5 (serialize ($messages)) == $GLOBALS["lastMessages"] && !$ignoreUsed)
             return false;
@@ -204,31 +266,50 @@ p
     border: 10px solid rgb(238, 238, 238);
     background-color: rgb(238, 238, 238);
 }
+
+img
+{
+    width: 50%;
+    height: 50%;
+}
 </style>";
 
         foreach ($messages as $id => $message)
         {
-            $time1 = "<br><font color=\"gray\" size=2>".$message["time"]."</font>";
-            $time2 = "<br><font color=\"white\" size=2>".$message["time"]."</font>";
-
-            switch ($message["type"])
+            if (!$message["message"] || strlen (strip_tags ($message["message"])) > 0)
             {
-                case "message":
-                    if ($message["author"] == "outside")
-                        $html = '<p class="outside">'.str_replace ("\n", "<br>", strip_tags ($message["message"])).$time1."</p>\n".$html;
+                $time1 = "<br><font color=\"gray\" size=2>".$message["time"]."</font>";
+                $time2 = "<br><font color=\"white\" size=2>".$message["time"]."</font>";
 
-                    else $html = '<p class="own" align="right">'.str_replace ("\n", "<br>", strip_tags ($message["message"])).$time2."</p>\n".$html;
-                break;
+                switch ($message["type"])
+                {
+                    case "message":
+                        if ($message["author"] == "outside")
+                            $html = '<p class="outside">'.str_replace ("\n", "<br>", strip_tags ($message["message"])).$time1."</p>\n".$html;
 
-                case "file":
-                    if (!file_exists ("saved/".sha1 ($message["fileContent"])."~".$message["fileName"]))
-                        file_put_contents ("saved/".sha1 ($message["fileContent"])."~".$message["fileName"], $message["fileContent"]);
+                        else $html = '<p class="own" align="right">'.str_replace ("\n", "<br>", strip_tags ($message["message"])).$time2."</p>\n".$html;
+                    break;
 
-                    if ($message["author"] == "outside")
-                        $html = '<p class="outside"><a href="saved/'.sha1 ($message["fileContent"])."~".$message["fileName"].'">'.strip_tags ($message["fileName"])."</a>".$time1."</p>\n".$html;
+                    case "file":
+                        if (!file_exists ("saved/".$message["fileHash"]."~".$message["fileName"]))
+                            file_put_contents ("saved/".$message["fileHash"]."~".$message["fileName"], $message["fileContent"]);
 
-                    else $html = '<p class="own" align="right"><a href="saved/'.sha1 ($message["fileContent"])."~".$message["fileName"].'">'.strip_tags ($message["fileName"])."</a>".$time2."</p>\n".$html;
-                break;
+                        if ($message["author"] == "outside")
+                            $html = '<p class="outside"><a href="saved/'.$message["fileHash"]."~".$message["fileName"].'">'.strip_tags ($message["fileName"])."</a>".$time1."</p>\n".$html;
+
+                        else $html = '<p class="own" align="right"><a href="saved/'.$message["fileHash"]."~".$message["fileName"].'">'.strip_tags ($message["fileName"])."</a>".$time2."</p>\n".$html;
+                    break;
+
+                    case "image":
+                        if (!file_exists ("saved/".$message["fileHash"]."~".$message["fileName"]))
+                            file_put_contents ("saved/".$message["fileHash"]."~".$message["fileName"], $message["fileContent"]);
+
+                        if ($message["author"] == "outside")
+                            $html = '<p class="outside"><img src="saved/'.$message["fileHash"]."~".$message["fileName"].'"></img>'.$time1."</p>\n".$html;
+
+                        else $html = '<p class="own" align="right"><img src="saved/'.$message["fileHash"]."~".$message["fileName"].'"></img>'.$time2."</p>\n".$html;
+                    break;
+                }
             }
         }
 
@@ -241,9 +322,10 @@ p
     {
         Global $BPN, $reciever;
 
-        $history = EnfestoAuth::get ("localStorage", $reciever."-history", $this->token);
+        if (!is_array ($message) && strlen (trim ($message)) < 1)
+            return false;
 
-        $name = sha1 (rand (1, 9999999));
+        $history = EnfestoAuth::get ("localStorage", $reciever."-history", $this->token);
 
         switch ($type)
         {
@@ -264,6 +346,20 @@ p
                     "author"      => "own",
                     "fileName"    => $message["fileName"],
                     "fileContent" => $message["fileContent"],
+                    "fileHash"    => $message["fileHash"],
+                    "time"        => date ("d.m.Y H:i"),
+
+                    "type" => $type
+                );
+            break;
+
+            case "image":
+                $history[] = array
+                (
+                    "author"      => "own",
+                    "fileName"    => $message["fileName"],
+                    "fileContent" => $message["fileContent"],
+                    "fileHash"    => $message["fileHash"],
                     "time"        => date ("d.m.Y H:i"),
 
                     "type" => $type
@@ -271,36 +367,46 @@ p
             break;
         }
 
-        $sl = new securityLib (SECURITYLIB_CERTIFICATES_KEY, $name);
-                
-        $sl->createCertificate ("rsa2", $name, array (
-            "message" => $message,
-            "date"    => time () + 3600 * 24 * 7
-        ));
-
         EnfestoAuth::set ("localStorage", $reciever."-history", $history, $this->token);
 
-        $message = file_get_contents ($name);
+        if (settings::get ("USE_FLUREX_ENCRYPTION"))
+            $message = Flurex::encode (serialize ($message), "FIX:Flurex_". AES256_ENCRYPTION_KEY .$reciever.sha1 ($reciever));
+
+        $name = sha1 (rand (1, 9999999));
+
+        $sl = new securityLib (serialize ($message). SECURITYLIB_CERTIFICATES_KEY .$reciever.sha1 ($reciever), $name);
+        $sl->createCertificate ("xcm", $name);
+
+        $message = array
+        (
+            "message"     => $message,
+            "certificate" => file_get_contents ($name)
+        );
+
         file_delete ($name);
+
+        $post = Ketner_A::encode (serialize (array (
+            "type"    => $type,
+            "sender"  => $this->id,
+            "message" => $message,
+            "time"    => date ("d.m.Y H:i"),
+
+            "flurexUsed" => settings::get ("USE_FLUREX_ENCRYPTION")
+        )), AES256_ENCRYPTION_KEY);
+
+        if (!EnfestoAuth::get ("localStorage", "sendedSize", $this->token))
+            EnfestoAuth::set ("localStorage", "sendedSize", 0, $this->token);
+
+        EnfestoAuth::set ("localStorage", "sendedSize", EnfestoAuth::get ("localStorage", "sendedSize", $this->token) + getTextSize ($post), $this->token);
 
         if (count ($BPN->getIdsList ()) > 2 && self::get ("USE_RETRANSLATORS") == true)
         {
             $tunnel = $BPN->createTunnel ($reciever);
 
-            $BPN->sendPacketForTunnel ($tunnel, Ketner_A::encode (serialize (array (
-                "type"    => $type,
-                "sender"  => $this->id,
-                "message" => $message,
-                "time"    => date ("d.m.Y H:i")
-            )), AES256_ENCRYPTION_KEY));
+            $BPN->sendPacketForTunnel ($tunnel, $post);
         }
 
-        else $BPN->sendPacketToPeer ($reciever, Ketner_A::encode (serialize (array (
-            "type"    => $type,
-            "sender"  => $this->id,
-            "message" => $message,
-            "time"    => date ("d.m.Y H:i")
-        )), AES256_ENCRYPTION_KEY));
+        else $BPN->sendPacketToPeer ($reciever, $post);
     }
 
     function loadUsersList ()
@@ -309,6 +415,9 @@ p
 
         $users = $BPN->getIdsList ();
         $chats = settings::get ("chats");
+
+        if (count ($users) < 1 || !is_array ($users))
+            $users = array ();
 
         if (count ($chats) < 1 || !is_array ($chats))
             $tmp = array ();
@@ -319,79 +428,91 @@ p
 
         $users = array_merge ($tmp, $users);
 
-        foreach ($users as $id => $user)
+        if ($GLOBALS["loadedUsersList"] != md5 (serialize ($users)))
         {
-            $user = self::fromId ($user);
+            $GLOBALS["loadedUsersList"] = md5 (serialize ($users));
 
-            if (!$GLOBALS[sha1 ($user)] && $user !== false && $users[$id] != $this->id)
+            foreach ($users as $id => $user)
             {
-                $GLOBALS[sha1 ($user)]  = true;
+                $user = self::fromId ($user);
 
-                $new = new TLabel (c("fmMain->menu"));
-                $new->parent = c("fmMain->menu");
-
-                $new->autoSize = false;
-
-                $new->x = 8;
-                $new->y = $GLOBALS["usersListY"];
-                $new->w = c("fmMain->menu")->w-16;
-                $new->h = 24;
-
-                $new->caption = "  ".$user;
-                $new->name    = abs (crc32($user));
-
-                $new->transparent = false;
-
-                $new->font        = c("fmMain->name")->font;
-                $new->font->color = clWhite;
-                $new->color       = c("fmMain->caption")->color;
-
-                $new->layout = tlCenter;
-
-                $new->onClick = function ($self)
+                if (!$GLOBALS[sha1 ($user)] && $user !== false && $users[$id] != $this->id)
                 {
-                    Global $edex;
+                    $GLOBALS[sha1 ($user)]  = true;
 
-                    resize::resize_object (c("fmMain->count2"), array (
-                        "y" => c($self)->y,
-                        "h" => c($self)->h
-                    ));
-
-                    $edex->reciever = c($self)->caption;
-
-                    c("fmMain->messages")->html = $edex->getMessagesHTML ($edex->getMessages (c($self)->caption), true);
-                };
-
-                $new->onMouseenter = function ($self)
-                {
-                    c($self)->transparent = 1;
-                };
-
-                $new->onMouseleave = function ($self)
-                {
-                    c($self)->transparent = 0;
-                };
-
-                if ($chats[$user])
-                {
-                    $GLOBALS["usersListY"] += 25;
-
-                    $new = new TShape (c("fmMain->menu"));
+                    $new = new TLabel (c("fmMain->menu"));
                     $new->parent = c("fmMain->menu");
 
-                    $new->x = 9;
+                    $new->autoSize = false;
+
+                    $new->x = 8;
                     $new->y = $GLOBALS["usersListY"];
                     $new->w = c("fmMain->menu")->w-16;
-                    $new->h = 1;
+                    $new->h = 24;
 
-                    $new->name    = abs (crc32($user))."_ul";
+                    $new->caption = "  ".$user;
+                    $new->name    = abs (crc32($user));
 
-                    $new->penColor = clGreen;
+                    $new->transparent = false;
 
-                    $GLOBALS["usersListY"] += 6;
+                    $new->font        = c("fmMain->name")->font;
+                    $new->font->color = clWhite;
+                    $new->color       = c("fmMain->caption")->color;
+
+                    $new->layout = tlCenter;
+
+                    $new->onClick = function ($self)
+                    {
+                        Global $edex;
+
+                        c("fmMain->messages")->html = "";
+                        c("fmMain->messages")->clearHistory ();
+                        c("fmMain->messages")->repaint ();
+
+                        c("fmMain->message")->visible = true;
+                        c("fmMain->messages")->x      = 240;
+
+                        resize::resize_object (c("fmMain->count2"), array (
+                            "y" => c($self)->y,
+                            "h" => c($self)->h
+                        ));
+
+                        $edex->reciever = c($self)->caption;
+
+                        c("fmMain->messages")->html = $edex->getMessagesHTML ($edex->getMessages (c($self)->caption), true);
+                    };
+
+                    $new->onMouseenter = function ($self)
+                    {
+                        c($self)->transparent = 1;
+                    };
+
+                    $new->onMouseleave = function ($self)
+                    {
+                        c($self)->transparent = 0;
+                    };
+
+                    if ($chats[$user])
+                    {
+                        $GLOBALS["usersListY"] += 25;
+
+                        $new = new TShape (c("fmMain->menu"));
+                        $new->parent = c("fmMain->menu");
+
+                        $new->x = 9;
+                        $new->y = $GLOBALS["usersListY"];
+                        $new->w = c("fmMain->menu")->w-16;
+                        $new->h = 1;
+
+                        $new->name    = abs (crc32($user))."_ul";
+
+                        $new->penColor = clGreen;
+
+                        $GLOBALS["usersListY"] += 6;
+                    }
+
+                    else $GLOBALS["usersListY"] += 32;
                 }
-
-                else $GLOBALS["usersListY"] += 32;
             }
         }
     }
@@ -399,8 +520,8 @@ p
     function toId ($id)
     {
         return base64_encode (serialize (array (
-            "type" => "EdexID",
-            "id"   => miqCode::encode ($id, BPN_ACCOUNTS_NAME_ENCRYPTION_KEY)
+            "type"   => "EdexID",
+            "id"     => miqCode::encode ($id, BPN_ACCOUNTS_NAME_ENCRYPTION_KEY)
         )));
     }
 
@@ -451,6 +572,12 @@ class settings
     {
         if ($settings == null)
         {
+            if (!settings::is ("CLIENT_VISIBILITY"))
+                settings::set ("CLIENT_VISIBILITY", true);
+
+            if (!settings::is ("USE_FLUREX_ENCRYPTION"))
+                settings::set ("USE_FLUREX_ENCRYPTION", true);
+
             $settings = array
             (
                 "BPN_DIR" => self::get ("BPN_DIR"),
@@ -463,7 +590,13 @@ class settings
                 "CERTIFICATION_KEY"  => self::get ("CERTIFICATION_KEY"),
                 "AES_ENCRYPTION_KEY" => self::get ("AES_ENCRYPTION_KEY"),
 
-                "USE_RETRANSLATORS" => self::get ("USE_RETRANSLATORS")
+                "USE_RETRANSLATORS" => self::get ("USE_RETRANSLATORS"),
+
+                "MESSAGES_SHOW" => self::get ("MESSAGES_SHOW"),
+
+                "CLIENT_VISIBILITY" => self::get ("CLIENT_VISIBILITY"),
+
+                "USE_FLUREX_ENCRYPTION" => self::get ("USE_FLUREX_ENCRYPTION")
             );
 
             $return = true;
@@ -480,6 +613,12 @@ class settings
         c("fmSettings->aes_key")->text     = $settings["AES_ENCRYPTION_KEY"];
 
         c("fmSettings->useRetranslators")->checked = (bool) $settings["USE_RETRANSLATORS"];
+
+        c("fmSettings->mes_show")->text = $settings["MESSAGES_SHOW"];
+
+        c("fmSettings->visibility")->checked = $settings["CLIENT_VISIBILITY"];
+
+        c("fmSettings->useFlurex")->checked = $settings["USE_FLUREX_ENCRYPTION"];
 
         if ($return)
             return $settings;

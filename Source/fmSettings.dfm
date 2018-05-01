@@ -87,12 +87,12 @@ object fmEdit: TForm
     Height = 480
     HelpType = htKeyword
     HelpKeyword = 
-      'AAAAAhQCEQVDTEFTUxEKVFNjcm9sbEJveBEGUEFSQU1TFAcRCGF2aXNpYmxlBREI' +
+      'AAAAAhQCEQVDTEFTUxEKVFNjcm9sbEJveBEGUEFSQU1TFAgRCGF2aXNpYmxlBREI' +
       'YWVuYWJsZWQFEQF3DEBiAAAAAAAAEQFoDEBaAAAAAAAAEQZwYXJlbnQXBVRGb3Jt' +
       'FAYRCmNsYXNzX25hbWUOCBEPACoAX2NvbnN0cmFpbnRzFxBUU2l6ZUNvbnN0cmFp' +
       'bnRzFAMOCQ4LEQRzZWxmCgC7jKgRCAAqAHByb3BzFAARBwAqAGljb24AEQgAKgBf' +
       'Zm9udAAODAoBV67ADg0UAQ4DBREEdGV4dBEKyu7t8uXp7eXwMREKd2luY29udHJv' +
-      'bAU='
+      'bAURAXkRAjI0'
     BorderStyle = bsNone
     TabOrder = 5
     object label14: TLabel
@@ -109,7 +109,7 @@ object fmEdit: TForm
         'AA4MCgFmoQAODRQBDgMFEQR0ZXh0EQbS5erx8jERCWZvbnRjb2xvcgoANjY2EQF4' +
         'BhARAXkGgBEIZm9udHNpemURATg='
       AutoSize = False
-      Caption = #1057#1086#1093#1088#1072#1085#1105#1085#1085#1099#1077' '#1087#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
+      Caption = #1057#1086#1093#1088#1072#1085#1105#1085#1085#1099#1077' '#1095#1072#1090#1099
       Color = 5394255
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = 3552822
@@ -232,7 +232,7 @@ object fmEdit: TForm
         'FAURCmNsYXNzX25hbWUOCBEPACoAX2NvbnN0cmFpbnRzABEIACoAX2ZvbnQAEQRz' +
         'ZWxmCgVKKTARCAAqAHByb3BzFAA='
       TabOrder = 1
-      Text = 'User Handle'
+      Text = #1048#1084#1103' '#1095#1072#1090#1072' / ID '#1087#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1103
       TextHint = 'User Handle'
       Alignment = taLeftJustify
       ColorOnEnter = clNone
@@ -420,7 +420,7 @@ object fmEdit: TForm
         'AA4MCgFmoQAODRQBDgMFEQR0ZXh0EQbS5erx8jERCWZvbnRjb2xvcgoAx8fHEQF4' +
         'BhARAXkGSBEIZm9udHNpemURATg='
       AutoSize = False
-      Caption = '        '#1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
+      Caption = '        '#1063#1072#1090#1099
       Color = 5394255
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = 13092807
@@ -618,7 +618,7 @@ object fmEdit: TForm
     end
     object link5: TLabel
       Left = 16
-      Top = 456
+      Top = 424
       Width = 68
       Height = 17
       Cursor = crHandPoint
@@ -640,7 +640,7 @@ object fmEdit: TForm
     end
     object link6: TLabel
       Left = 112
-      Top = 456
+      Top = 424
       Width = 58
       Height = 17
       Cursor = crHandPoint
@@ -662,7 +662,7 @@ object fmEdit: TForm
     end
     object link7: TLabel
       Left = 200
-      Top = 456
+      Top = 424
       Width = 50
       Height = 17
       Cursor = crHandPoint
@@ -684,7 +684,7 @@ object fmEdit: TForm
     end
     object link8: TLabel
       Left = 272
-      Top = 456
+      Top = 424
       Width = 47
       Height = 17
       Cursor = crHandPoint
@@ -706,7 +706,7 @@ object fmEdit: TForm
     end
     object link9: TLabel
       Left = 344
-      Top = 456
+      Top = 424
       Width = 58
       Height = 17
       Cursor = crHandPoint
@@ -728,7 +728,7 @@ object fmEdit: TForm
     end
     object link10: TLabel
       Left = 424
-      Top = 456
+      Top = 424
       Width = 71
       Height = 17
       Cursor = crHandPoint
@@ -741,6 +741,28 @@ object fmEdit: TForm
         'AF9jb25zdHJhaW50cwARCAAqAF9mb250ABEEc2VsZgoLw4jAEQgAKgBwcm9wcxQA' +
         'EQR0ZXh0EQfR8fvr6uAxEQF4CAFgEQF5CAHQ'
       Caption = 'Enfesto Auth'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = 3552822
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
+    end
+    object link11: TLabel
+      Left = 16
+      Top = 448
+      Width = 138
+      Height = 17
+      Cursor = crHandPoint
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEKVExpbmtMYWJlbBEGUEFSQU1TFAwRCGF2aXNpYmxlBREI' +
+        'YWVuYWJsZWQFEQlmb250Y29sb3IKADY2NhEKaG92ZXJjb2xvcgoA/4AAEQpob3Zl' +
+        'cnN0eWxlEQtmc1VuZGVybGluZREJaG92ZXJzaXplBgARAXcMQFQAAAAAAAARAWgM' +
+        'QDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJveBQFEQpjbGFzc19uYW1lDg0RDwAq' +
+        'AF9jb25zdHJhaW50cwARCAAqAF9mb250ABEEc2VsZgoLw4jAEQgAKgBwcm9wcxQA' +
+        'EQR0ZXh0EQfR8fvr6uAxEQF4CAGwEQF5CAHQ'
+      Caption = 'Flurex Encryption System'
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = 3552822
       Font.Height = -13
@@ -761,12 +783,13 @@ object fmEdit: TForm
       'FAYRCmNsYXNzX25hbWUOCBEPACoAX2NvbnN0cmFpbnRzFxBUU2l6ZUNvbnN0cmFp' +
       'bnRzFAMOCQ4LEQRzZWxmCgmpmwgRCAAqAHByb3BzFAARBwAqAGljb24AEQgAKgBf' +
       'Zm9udAAODAoBbT1QDg0UAQ4DBREEdGV4dBEKyu7t8uXp7eXwMREKd2luY29udHJv' +
-      'bAURAXkRAjI0'
+      'bAURAXkRAzUwNA=='
+    VertScrollBar.Position = 400
     BorderStyle = bsNone
-    TabOrder = 3
+    TabOrder = 2
     object label5: TLabel
-      Left = 16
-      Top = 24
+      Left = 24
+      Top = -352
       Width = 80
       Height = 24
       HelpType = htKeyword
@@ -785,8 +808,8 @@ object fmEdit: TForm
       ParentFont = False
     end
     object label6: TLabel
-      Left = 16
-      Top = 144
+      Left = 24
+      Top = -232
       Width = 152
       Height = 24
       HelpType = htKeyword
@@ -805,8 +828,8 @@ object fmEdit: TForm
       ParentFont = False
     end
     object label7: TLabel
-      Left = 32
-      Top = 200
+      Left = 40
+      Top = -176
       Width = 152
       Height = 24
       HelpType = htKeyword
@@ -825,8 +848,8 @@ object fmEdit: TForm
       ParentFont = False
     end
     object label8: TLabel
-      Left = 32
-      Top = 256
+      Left = 40
+      Top = -120
       Width = 152
       Height = 24
       HelpType = htKeyword
@@ -845,8 +868,8 @@ object fmEdit: TForm
       ParentFont = False
     end
     object label9: TLabel
-      Left = 32
-      Top = 80
+      Left = 40
+      Top = -296
       Width = 152
       Height = 24
       HelpType = htKeyword
@@ -865,8 +888,8 @@ object fmEdit: TForm
       ParentFont = False
     end
     object label10: TLabel
-      Left = 16
-      Top = 320
+      Left = 24
+      Top = -56
       Width = 152
       Height = 24
       HelpType = htKeyword
@@ -885,8 +908,8 @@ object fmEdit: TForm
       ParentFont = False
     end
     object label11: TLabel
-      Left = 16
-      Top = 376
+      Left = 24
+      Top = 0
       Width = 152
       Height = 24
       HelpType = htKeyword
@@ -906,7 +929,7 @@ object fmEdit: TForm
     end
     object save: TLabel
       Left = 16
-      Top = 512
+      Top = 440
       Width = 128
       Height = 24
       HelpType = htKeyword
@@ -932,7 +955,7 @@ object fmEdit: TForm
     end
     object import: TLabel
       Left = 152
-      Top = 512
+      Top = 440
       Width = 192
       Height = 24
       HelpType = htKeyword
@@ -958,7 +981,7 @@ object fmEdit: TForm
     end
     object export: TLabel
       Left = 352
-      Top = 512
+      Top = 440
       Width = 192
       Height = 24
       HelpType = htKeyword
@@ -984,7 +1007,7 @@ object fmEdit: TForm
     end
     object image1: TMImage
       Left = 16
-      Top = 536
+      Top = 464
       Width = 528
       Height = 16
       HelpType = htKeyword
@@ -996,7 +1019,7 @@ object fmEdit: TForm
     end
     object label16: TLabel
       Left = 48
-      Top = 448
+      Top = 72
       Width = 416
       Height = 24
       HelpType = htKeyword
@@ -1019,7 +1042,7 @@ object fmEdit: TForm
     end
     object label17: TLabel
       Left = 48
-      Top = 472
+      Top = 96
       Width = 424
       Height = 16
       HelpType = htKeyword
@@ -1030,7 +1053,7 @@ object fmEdit: TForm
         'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGUBEBeQgBkBEJ' +
         'Zm9udGNvbG9yBv8='
       AutoSize = False
-      Caption = #1053#1077#1089#1090#1072#1073#1080#1083#1100#1085#1086'. '#1042#1086#1079#1084#1086#1078#1085#1099' '#1087#1086#1090#1077#1088#1080' '#1089#1086#1086#1073#1097#1077#1085#1080#1081' '#1080' '#1076#1088#1091#1075#1080#1077' '#1087#1086#1073#1086#1095#1085#1099#1077' '#1103#1074#1083#1077#1085#1080#1103
+      Caption = #1053#1077#1089#1090#1072#1073#1080#1083#1100#1085#1086'. '#1042#1086#1079#1084#1086#1078#1085#1099' '#1087#1086#1090#1077#1088#1080' '#1089#1086#1086#1073#1097#1077#1085#1080#1081' '#1080' '#1076#1088#1091#1075#1080#1077' '#1087#1086#1073#1086#1095#1085#1099#1077' '#1101#1092#1092#1077#1082#1090#1099
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clRed
       Font.Height = -13
@@ -1038,9 +1061,179 @@ object fmEdit: TForm
       Font.Style = []
       ParentFont = False
     end
-    object bpn_server: TEdit
+    object label12: TLabel
+      Left = 8
+      Top = -392
+      Width = 136
+      Height = 32
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUBhEIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLEKkQEQgAKgBwcm9wcxQAEQR0ZXh0EQfS5erx8jEy'
+      AutoSize = False
+      Caption = #1041#1077#1079#1086#1087#1072#1089#1085#1086#1089#1090#1100
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Segoe UI Light'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object label13: TLabel
+      Left = 8
+      Top = 320
+      Width = 112
+      Height = 32
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCBEIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLEKkQEQgAKgBwcm9wcxQAEQR0ZXh0EQfS5erx8jEyEQF4BhARAXkGEA=='
+      AutoSize = False
+      Caption = #1048#1085#1090#1077#1088#1092#1077#1081#1089
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Segoe UI Light'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object label18: TLabel
       Left = 16
-      Top = 48
+      Top = 360
+      Width = 352
+      Height = 24
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCBEIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGIBEBeQbY'
+      AutoSize = False
+      Caption = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086' '#1086#1090#1086#1073#1088#1072#1078#1072#1077#1084#1099#1093' '#1089#1086#1086#1073#1097#1077#1085#1080#1081' (<1 - '#1074#1089#1077')'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
+    end
+    object label19: TLabel
+      Left = 8
+      Top = 200
+      Width = 88
+      Height = 32
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCBEIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLEKkQEQgAKgBwcm9wcxQAEQR0ZXh0EQfS5erx8jEyEQF4BhARAXkIAUg='
+      AutoSize = False
+      Caption = #1057#1080#1089#1090#1077#1084#1072
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Segoe UI Light'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object label20: TLabel
+      Left = 48
+      Top = 240
+      Width = 184
+      Height = 24
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCBEIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGQBEBeQZ4'
+      AutoSize = False
+      Caption = #1042#1080#1076#1080#1084#1086#1089#1090#1100' '#1082#1083#1080#1077#1085#1090#1072' '#1074' '#1089#1077#1090#1080' BPN'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+    end
+    object label21: TLabel
+      Left = 48
+      Top = 264
+      Width = 424
+      Height = 40
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCREIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGOBEBeQaQEQlm' +
+        'b250Y29sb3IG/w=='
+      AutoSize = False
+      Caption = 
+        #1055#1088#1080' '#1086#1090#1082#1083#1102#1095#1077#1085#1080#1080' '#1074#1072#1089' '#1085#1077#1074#1086#1079#1084#1086#1078#1085#1086' '#1073#1091#1076#1077#1090' '#1091#1074#1080#1076#1077#1090#1100' '#1074' '#1089#1077#1090#1080' '#1080' '#1074#1099' '#1085#1077' '#1089#1084#1086#1078#1077 +
+        #1090#1077' '#1091#1095#1072#1089#1090#1074#1086#1074#1072#1090#1100' '#1074' '#1088#1077#1090#1088#1072#1085#1089#1083#1103#1094#1080#1080' '#1090#1088#1072#1092#1080#1082#1072' '#1076#1088#1091#1075#1080#1093' '#1087#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1077#1081
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
+      WordWrap = True
+    end
+    object label22: TLabel
+      Left = 48
+      Top = 128
+      Width = 416
+      Height = 24
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCBEIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGOBEBeQgBVg=='
+      AutoSize = False
+      Caption = #1048#1089#1087#1086#1083#1100#1079#1086#1074#1072#1090#1100' '#1076#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1086#1077' '#1096#1080#1092#1088#1086#1074#1072#1085#1080#1077' '#1089#1080#1089#1090#1077#1084#1086#1081' Flurex'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+    end
+    object label23: TLabel
+      Left = 48
+      Top = 152
+      Width = 424
+      Height = 40
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEGVExhYmVsEQZQQVJBTVMUCREIYXZpc2libGUFEQhhZW5h' +
+        'YmxlZAURAXcMQFQAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9sbEJv' +
+        'eBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250ABEE' +
+        'c2VsZgoLxuZQEQgAKgBwcm9wcxQAEQR0ZXh0EQbS5erx8jURAXgGOBEBeQgBbhEJ' +
+        'Zm9udGNvbG9yBv8='
+      AutoSize = False
+      Caption = 
+        #1055#1088#1080' '#1086#1090#1087#1088#1072#1074#1082#1077' '#1073#1086#1083#1100#1096#1080#1093' '#1092#1072#1081#1083#1086#1074' '#1080#1083#1080' '#1089#1086#1086#1073#1097#1077#1085#1080#1081' '#1072#1083#1075#1086#1088#1080#1090#1084' '#1084#1086#1078#1077#1090' '#1076#1086#1089#1090#1072#1090#1086 +
+        #1095#1085#1086' '#1076#1086#1083#1075#1086' '#1088#1072#1073#1086#1090#1072#1090#1100
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Segoe UI Light'
+      Font.Style = []
+      ParentFont = False
+      WordWrap = True
+    end
+    object bpn_server: TEdit
+      Left = 24
+      Top = -328
       Width = 432
       Height = 21
       HelpType = htKeyword
@@ -1058,8 +1251,8 @@ object fmEdit: TForm
       MarginRight = 0
     end
     object auth_server: TEdit
-      Left = 16
-      Top = 168
+      Left = 24
+      Top = -208
       Width = 432
       Height = 21
       HelpType = htKeyword
@@ -1077,8 +1270,8 @@ object fmEdit: TForm
       MarginRight = 0
     end
     object auth_file: TEdit
-      Left = 32
-      Top = 224
+      Left = 40
+      Top = -152
       Width = 416
       Height = 21
       HelpType = htKeyword
@@ -1096,8 +1289,8 @@ object fmEdit: TForm
       MarginRight = 0
     end
     object auth_key: TEdit
-      Left = 32
-      Top = 280
+      Left = 40
+      Top = -96
       Width = 416
       Height = 21
       HelpType = htKeyword
@@ -1115,8 +1308,8 @@ object fmEdit: TForm
       MarginRight = 0
     end
     object bpn_key: TEdit
-      Left = 32
-      Top = 104
+      Left = 40
+      Top = -272
       Width = 416
       Height = 21
       HelpType = htKeyword
@@ -1134,8 +1327,8 @@ object fmEdit: TForm
       MarginRight = 0
     end
     object cert_key: TEdit
-      Left = 16
-      Top = 344
+      Left = 24
+      Top = -32
       Width = 432
       Height = 21
       HelpType = htKeyword
@@ -1153,8 +1346,8 @@ object fmEdit: TForm
       MarginRight = 0
     end
     object aes_key: TEdit
-      Left = 16
-      Top = 400
+      Left = 24
+      Top = 24
       Width = 432
       Height = 21
       HelpType = htKeyword
@@ -1173,7 +1366,7 @@ object fmEdit: TForm
     end
     object useRetranslators: TCheckBox
       Left = 24
-      Top = 448
+      Top = 72
       Width = 16
       Height = 24
       HelpType = htKeyword
@@ -1183,6 +1376,51 @@ object fmEdit: TForm
         'bEJveBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250' +
         'ABEEc2VsZgoNcueAEQgAKgBwcm9wcxQAEQR0ZXh0DQ=='
       TabOrder = 7
+    end
+    object mes_show: TEdit
+      Left = 16
+      Top = 384
+      Width = 432
+      Height = 21
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEFVEVkaXQRBlBBUkFNUxQHEQhhdmlzaWJsZQURCGFlbmFi' +
+        'bGVkBREBdwxAWgAAAAAAABEBaAwAAAAAAAAAABEGcGFyZW50FwpUU2Nyb2xsQm94' +
+        'FAURCmNsYXNzX25hbWUOCBEPACoAX2NvbnN0cmFpbnRzABEIACoAX2ZvbnQAEQRz' +
+        'ZWxmCgvG5lARCAAqAHByb3BzFAARAXgGIBEBeQbw'
+      TabOrder = 8
+      Alignment = taLeftJustify
+      ColorOnEnter = clNone
+      FontColorOnEnter = clNone
+      TabOnEnter = False
+      MarginLeft = 0
+      MarginRight = 0
+    end
+    object visibility: TCheckBox
+      Left = 24
+      Top = 240
+      Width = 16
+      Height = 24
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEJVENoZWNrQm94EQZQQVJBTVMUCBEIYXZpc2libGUFEQhh' +
+        'ZW5hYmxlZAURAXcMQGIAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9s' +
+        'bEJveBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250' +
+        'ABEEc2VsZgoNcueAEQgAKgBwcm9wcxQAEQR0ZXh0DREBeAYoEQF5Bng='
+      TabOrder = 9
+    end
+    object useFlurex: TCheckBox
+      Left = 24
+      Top = 128
+      Width = 16
+      Height = 24
+      HelpType = htKeyword
+      HelpKeyword = 
+        'AAAAAhQCEQVDTEFTUxEJVENoZWNrQm94EQZQQVJBTVMUCBEIYXZpc2libGUFEQhh' +
+        'ZW5hYmxlZAURAXcMQGIAAAAAAAARAWgMQDgAAAAAAAARBnBhcmVudBcKVFNjcm9s' +
+        'bEJveBQFEQpjbGFzc19uYW1lDggRDwAqAF9jb25zdHJhaW50cwARCAAqAF9mb250' +
+        'ABEEc2VsZgoNcueAEQgAKgBwcm9wcxQAEQR0ZXh0DREBeAYgEQF5CAFW'
+      TabOrder = 10
     end
   end
   object hideForm: __TNoVisual
